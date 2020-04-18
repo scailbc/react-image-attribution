@@ -1,0 +1,38 @@
+/* add css module styles here (optional) */
+
+.image-attribution-outside-container {
+    display: inline-block;
+    margin: 0;
+}
+
+.image-attribution-outside-attribution-text {
+    font-size: 0.8rem;
+}
+
+.image-attribution-overlay-container {
+    display: inline-block;
+    margin: 0;
+    position: relative;
+}
+
+.image-attribution-overlay-attribution-text {
+    position: absolute;
+    background-color: black;
+    color: white;
+    opacity: 0.36;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.top {
+    top: 0;
+}
+.bottom {
+    bottom: 0;
+}
+.left {
+    left: 0;
+}
+.right {
+    right: 0;
+}
