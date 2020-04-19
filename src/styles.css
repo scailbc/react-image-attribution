@@ -7,6 +7,11 @@
 
 .image-attribution-outside-attribution-text {
     font-size: 0.8rem;
+    transition: opacity 0.5s linear;
+}
+
+.image-attribution-outside-attribution-text.hidden {
+    opacity: 0;
 }
 
 .image-attribution-overlay-container {
@@ -22,6 +27,11 @@
     opacity: 0.36;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
+    transition: opacity 0.5s linear;
+}
+
+.image-attribution-overlay-attribution-text.hidden {
+    opacity: 0;
 }
 
 .top {

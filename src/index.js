@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import "./styles.css";
 
@@ -29,13 +29,18 @@ function ImageAttribution(props) {
         containerComponent,
         containerStyle,
         dataAttributes,
+        hover,
         license,
         mode,
+        onContainerMouseEnter,
+        onContainerMouseLeave,
         position,
         source,
         title,
         ...imageProps
     } = props;
+
+    const [isHover, setIsHover] = useState(false);
 
     let dataAttributesProps;
     if (dataAttributes) {
@@ -45,6 +50,20 @@ function ImageAttribution(props) {
             "data-source": source,
             "data-title": title,
         };
+    }
+
+    function handleHoverIn(e) {
+        setIsHover(true);
+        if (onContainerMouseEnter) {
+            return onContainerMouseEnter(e);
+        }
+    }
+
+    function handleHoverOut(e) {
+        setIsHover(false);
+        if (onContainerMouseLeave) {
+            return onContainerMouseLeave(e);
+        }
     }
 
     function splitPosition(position) {
@@ -112,7 +131,9 @@ function ImageAttribution(props) {
                     style={attributionTextStyle}
                     className={
                         attributionTextClassName ||
-                        `image-attribution-outside-attribution-text`
+                        `image-attribution-outside-attribution-text ${
+                            hover && !isHover ? "hidden" : ""
+                        }`
                     }
                 >
                     {attributionText || renderAttributionText()}
@@ -125,6 +146,8 @@ function ImageAttribution(props) {
                         containerClassName ||
                         "image-attribution-outside-container"
                     }
+                    onMouseEnter={handleHoverIn}
+                    onMouseLeave={handleHoverOut}
                 >
                     {isTop ? descriptionComponent : null}
                     {ImageComponent}
@@ -141,13 +164,17 @@ function ImageAttribution(props) {
                         containerClassName ||
                         "image-attribution-overlay-container"
                     }
+                    onMouseEnter={handleHoverIn}
+                    onMouseLeave={handleHoverOut}
                 >
                     {ImageComponent}
                     <TextComponent
                         style={attributionTextStyle}
                         className={
                             attributionTextClassName ||
-                            `${`image-attribution-overlay-attribution-text`} ${vertical} ${horizontal}`
+                            `${`image-attribution-overlay-attribution-text`} ${vertical} ${horizontal} ${
+                                hover && !isHover ? "hidden" : ""
+                            }`
                         }
                     >
                         {attributionText || renderAttributionText()}
@@ -170,17 +197,21 @@ ImageAttribution.propTypes = {
     containerComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     containerStyle: PropTypes.any,
     dataAttributes: PropTypes.bool,
+    hover: PropTypes.bool,
     license: PropTypes.string,
     mode: PropTypes.oneOf(Object.values(MODE)),
+    onContainerMouseEnter: PropTypes.func,
+    onContainerMouseLeave: PropTypes.func,
     position: PropTypes.oneOf(VALID_POSITION),
     source: PropTypes.string,
     title: PropTypes.string,
 };
 
 ImageAttribution.defaultProps = {
+    attributionTextComponent: "figcaption",
     containerComponent: "figure",
     dataAttributes: true,
-    attributionTextComponent: "figcaption",
+    hover: false,
     mode: MODE.OVERLAY,
     position: "bottomright",
 };
