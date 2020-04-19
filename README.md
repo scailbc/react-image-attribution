@@ -84,8 +84,8 @@ By default the image is shown using an `img` HTML element. All unlinsted props w
 | license | string | null | License applied to the picture |
 | licenseLink | string | null | Link assigned to the `license` text |
 | mode | "hidden"/"outside"/"overlay" | "overlay" | Mode to display the attribution text |
-| onContainerMouseEnter | func | null | `onMouseEnter` listener of the img container, not used with `mode: hidden |
-| onContainerMouseLeave | func | null | `onMouseLeave` listener of the img container, not used with `mode: hidden |
+| onContainerMouseEnter | func | null | `onMouseEnter` listener of the img container, not used with `mode: hidden` |
+| onContainerMouseLeave | func | null | `onMouseLeave` listener of the img container, not used with `mode: hidden` |
 | position | "topleft"/"topcenter"/"topright"/"bottomleft"/"bottomcenter"/"bottomright" | "bottomright" | Position of the attribution text |
 | source | string | null | Source of the picture |
 | sourceLink | string | null | Link assigned to the `source` text |
