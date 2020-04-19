@@ -24,6 +24,7 @@ function ImageAttribution(props) {
         attributionTextComponent,
         attributionTextStyle,
         author,
+        authorLink,
         children,
         containerClassName,
         containerComponent,
@@ -31,12 +32,15 @@ function ImageAttribution(props) {
         dataAttributes,
         hover,
         license,
+        licenseLink,
         mode,
         onContainerMouseEnter,
         onContainerMouseLeave,
         position,
         source,
+        sourceLink,
         title,
+        titleLink,
         ...imageProps
     } = props;
 
@@ -46,9 +50,13 @@ function ImageAttribution(props) {
     if (dataAttributes) {
         dataAttributesProps = {
             "data-author": author,
+            "data-author-link": authorLink,
             "data-license": license,
+            "data-license-link": licenseLink,
             "data-source": source,
+            "data-source-link": sourceLink,
             "data-title": title,
+            "data-title-link": titleLink,
         };
     }
 
@@ -79,7 +87,7 @@ function ImageAttribution(props) {
         };
     }
 
-    function renderAttributionText() {
+    function renderAttributionTextComponent() {
         if (attributionText) {
             return attributionText;
         }
@@ -87,26 +95,40 @@ function ImageAttribution(props) {
             return null;
         }
 
-        let text = "";
-
-        if (title) {
-            text += `"${title}" `;
-        } else if (author || license || source) {
-            text += "Picture";
-        }
-
-        if (author) {
-            text += `by ${author}`;
-        }
-
-        if (license) {
-            if (author || title) {
-                text += `, licensed under ${license}`;
-            } else {
-                text += `Licensed under ${license}`;
-            }
-        }
-        return text;
+        return (
+            <>
+                {title ? (
+                    <>
+                        "<Link href={titleLink}>{title}</Link>"
+                    </>
+                ) : author || source ? (
+                    <Link href={titleLink}>Picture</Link>
+                ) : null}
+                {author ? (
+                    <>
+                        <> by </> <Link href={authorLink}>{author}</Link>
+                    </>
+                ) : null}
+                {source ? (
+                    <>
+                        <> from </> <Link href={sourceLink}>{source}</Link>
+                    </>
+                ) : null}
+                {license ? (
+                    author || title || source ? (
+                        <>
+                            , licensed under{" "}
+                            <Link href={licenseLink}>{license}</Link>
+                        </>
+                    ) : (
+                        <>
+                            Licensed under{" "}
+                            <Link href={licenseLink}>{license}</Link>
+                        </>
+                    )
+                ) : null}
+            </>
+        );
     }
 
     // Components
@@ -136,7 +158,7 @@ function ImageAttribution(props) {
                         }`
                     }
                 >
-                    {attributionText || renderAttributionText()}
+                    {attributionText || renderAttributionTextComponent()}
                 </TextComponent>
             );
             return (
@@ -177,10 +199,22 @@ function ImageAttribution(props) {
                             }`
                         }
                     >
-                        {attributionText || renderAttributionText()}
+                        {attributionText || renderAttributionTextComponent()}
                     </TextComponent>
                 </ContainerComponent>
             );
+    }
+}
+
+function Link({ children, href, ...otherProps }) {
+    if (href) {
+        return (
+            <a href={href} {...otherProps}>
+                {children}
+            </a>
+        );
+    } else {
+        return children;
     }
 }
 
@@ -193,18 +227,22 @@ ImageAttribution.propTypes = {
     ]),
     attributionTextStyle: PropTypes.any,
     author: PropTypes.string,
+    authorLink: PropTypes.string,
     containerClassName: PropTypes.string,
     containerComponent: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
     containerStyle: PropTypes.any,
     dataAttributes: PropTypes.bool,
     hover: PropTypes.bool,
     license: PropTypes.string,
+    licenseLink: PropTypes.string,
     mode: PropTypes.oneOf(Object.values(MODE)),
     onContainerMouseEnter: PropTypes.func,
     onContainerMouseLeave: PropTypes.func,
     position: PropTypes.oneOf(VALID_POSITION),
     source: PropTypes.string,
+    sourceLink: PropTypes.string,
     title: PropTypes.string,
+    titleLink: PropTypes.string,
 };
 
 ImageAttribution.defaultProps = {
