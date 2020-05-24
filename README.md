@@ -12,6 +12,8 @@ You can use it as a normal `<img />` element or pass a custom component as child
 
 [Best practices for attribution](https://wiki.creativecommons.org/wiki/best_practices_for_attribution)
 
+![Sample usage](/sample_image.gif)
+
 ## Install
 
 ```bash
@@ -20,12 +22,12 @@ npm install --save react-image-attribution
 
 ## Usage
 
-You can use this component as the standard [HTML immg tag](https://www.w3schools.com/tags/tag_img.asp).
+You can use this component as the standard [HTML img tag](https://www.w3schools.com/tags/tag_img.asp).
 
 ```jsx
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import ImageAttribution from 'react-image-attribution'
+import ImageAttribution from "react-image-attribution";
 
 class Example extends Component {
   render() {
@@ -43,10 +45,10 @@ class Example extends Component {
 You can use a custom image component:
 
 ```jsx
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import ImageAttribution from 'react-image-attribution'
-import CustomImage from './CustomImage'
+import ImageAttribution from "react-image-attribution";
+import CustomImage from "./CustomImage";
 
 class Example extends Component {
   render() {

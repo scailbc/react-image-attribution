@@ -1,6 +1,6 @@
-import React from "react"
+import React from "react";
 
-import ImageAttribution from "react-image-attribution"
+import ImageAttribution from "react-image-attribution";
 
 const App = () => {
     return (
@@ -36,4 +36,4 @@ const App = () => {
     );
 }
 
-export default App
+export default App;
